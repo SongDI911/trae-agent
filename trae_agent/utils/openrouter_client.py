@@ -45,9 +45,10 @@ class OpenRouterClient(BaseLLMClient):
                 "OpenRouter API key not provided. Set OPENROUTER_API_KEY in environment variables or config file."
             )
 
-        # Use OpenAI SDK with OpenRouter's base URL
+        # Use OpenAI SDK with OpenRouter's base URL or custom base URL
+        base_url = self.base_url if self.base_url else "https://openrouter.ai/api/v1"
         self.client: openai.OpenAI = openai.OpenAI(
-            api_key=self.api_key, base_url="https://openrouter.ai/api/v1"
+            api_key=self.api_key, base_url=base_url
         )
         self.message_history: list[ChatCompletionMessageParam] = []
 
